@@ -83,12 +83,22 @@ router.get('/', function(req, res, next) {
     var pq = query.exec();
     return pq.then(function(data) {
       promise.map(data, function (data) {
+        if (data.URL.indexOf('http://www.abc.net.au/local/photos') > -1) {
+          data.URL += "?desktop=true";
+        }
         console.log("Downloading: " + data.URL);
-        return request(data.URL).then(function (params) {
-          // console.log(data);
-          data.Story = params.body;
-          // ArticleMetaDataModel.update(data._id, data)
-          return new promise.resolve(ArticleMetaDataModel.update(data._id, data).exec());
+        
+        return request(data.URL).spread(function (params) {
+          var dom = cheerio.load(params.body);
+      
+          // if (params.request.href == "http://www.abc.net.au/local/photos/2014/03/14/3963548.htm") {
+          //   console.log("debug here");
+          // console.log(params.body);
+          // console.log(params.request.href);
+          // }
+
+          ArticleMetaDataModel.update({URL: params.request.href }, {$set: { Story: params.body }}).exec();
+          return new promise.resolve();
         }).catch(function (err) {
           console.log(err);
         })
