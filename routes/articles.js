@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Schema = require('mongoose').Schema;
-mongoose.connect('mongodb://mongodb/govhack2015'); 
+mongoose.connect('mongodb://mongo/govhack2015'); 
 var ArticlesSchema = new Schema({
     Title: String,
     URL: String,
