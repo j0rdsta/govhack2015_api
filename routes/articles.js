@@ -37,7 +37,7 @@ router.get('/', function (req, res) {
     var qTake = 10
     var qSort = req.query.sort;
     var qFilter = req.query.filter;
-    return ArticlesModel.find().sort(qSort).skip(qSkip).limit(qTake)
+    return ArticlesModel.find({"Story": { "$ne": "" }}).sort(qSort).skip(qSkip).limit(qTake)
     .exec(function (err, articles) {
            res.json(articles);
     });
