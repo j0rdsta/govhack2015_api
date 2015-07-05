@@ -46,7 +46,7 @@ router.post('/', function (req, res) {
 
 router.get('/:id', function (req, res) {
     return ArticlesModel.findById(req.params.id, function (err, articles) {
-    // more code
+        res.json(articles);
     });
 });
 
