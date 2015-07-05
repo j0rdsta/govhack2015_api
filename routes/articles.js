@@ -24,6 +24,14 @@ var ArticlesSchema = new Schema({
 
 var ArticlesModel = mongoose.model('articles', ArticlesSchema);
 
+router.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+
+
 router.get('/', function (req, res) {
     var qSkip = req.query.skip;
     var qTake = 10
