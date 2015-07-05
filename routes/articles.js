@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-
 var mongoose = require('mongoose');
 var Schema = require('mongoose').Schema;
 mongoose.connect('mongodb://dev01.jahead.io/govhack2015'); 
@@ -37,7 +36,7 @@ router.get('/', function (req, res) {
     var qTake = 10
     var qSort = req.query.sort;
     var qFilter = req.query.filter;
-    return ArticlesModel.find({"Story": { "$ne": "" }}).sort(qSort).skip(qSkip).limit(qTake)
+    return ArticlesModel.find({"Story": { "$ne": "" }, "Primary image": { "$ne": "" } }).sort(qSort).skip(qSkip).limit(qTake)
     .exec(function (err, articles) {
            res.json(articles);
     });
