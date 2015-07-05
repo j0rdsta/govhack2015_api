@@ -22,7 +22,7 @@ var articles = require('./routes/articles');
 var updateData = require('./routes/updateData');
 
 var app = express();
-// app.listen()s;
+app.listen(8080);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
