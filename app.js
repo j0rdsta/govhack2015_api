@@ -5,13 +5,24 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var application_root = __dirname,
+        express = require('express'),
+        path = require('path'),
+        http = require('http');
+        
+var mongoose = require('mongoose');
+// var articlesApi = require('./routes/articles')(app, { 'mongoose': mongoose, 'db': dbProduction });
+
+
+
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var articles = require('./routes/articles');
+var updateData = require('./routes/updateData');
 
 var app = express();
-
+// app.listen()s;
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -27,6 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/articles', articles);
+app.use('/updateData', updateData);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -35,6 +47,10 @@ app.use(function(req, res, next) {
   next(err);
 });
 
+
+app.get('/api', function (req, res) {
+        res.send('API is running');
+});
 // error handlers
 
 // development error handler
