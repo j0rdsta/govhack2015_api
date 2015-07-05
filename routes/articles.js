@@ -26,7 +26,7 @@ var ArticlesModel = mongoose.model('articles', ArticlesSchema);
 
 router.get('/', function (req, res) {
     var qSkip = req.query.skip;
-    var qTake = 5;
+    var qTake = Math.min(10, req.query.take);
     var qSort = req.query.sort;
     var qFilter = req.query.filter;
     return ArticlesModel.find().sort(qSort).skip(qSkip).limit(qTake)
