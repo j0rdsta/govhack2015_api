@@ -33,7 +33,7 @@ router.use(function(req, res, next) {
 
 router.get('/', function (req, res) {
     var qSkip = req.query.skip;
-    var qTake = 10
+    var qTake = req.query.take;
     var qSort = req.query.sort;
     var qFilter = req.query.filter;
     return ArticlesModel.find({"Story": { "$ne": "" }, "Primary image": { "$ne": "" } }).sort(qSort).skip(qSkip).limit(qTake)
