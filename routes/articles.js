@@ -36,7 +36,7 @@ router.get('/', function (req, res) {
     var qTake = req.query.take;
     var qSort = req.query.sort;
     var qFilter = req.query.filter;
-    return ArticlesModel.find({"Story": { "$ne": "" }, "Primary image": { "$ne": "" } }).sort(qSort).skip(qSkip).limit(qTake)
+    return ArticlesModel.find({"Story": { "$ne": "" }, "Primary image": { "$ne": "" } }).sort(qSort).skip(qSkip).limit(qTake).find(qFilter)
     .exec(function (err, articles) {
            res.json(articles);
     });
