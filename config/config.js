@@ -1,6 +1,6 @@
 var path = require('path'),
     rootPath = path.normalize(__dirname + '/..'),
-    env = process.env.NODE_ENV || 'development';
+    env = process.env.NODE_ENV || 'production';
 
 var config = {
   development: {
@@ -9,8 +9,17 @@ var config = {
       name: 'govhack2015-api'
     },
     port: 3000,
-    db: 'mongodb://localhost/govhack2015-api-development'
+    db: 'mongodb://mongo/govhack2015-api-development'
   },
+
+   local: {
+      root: rootPath,
+      app: {
+          name: 'govhack2015-api'
+      },
+      port: 3000,
+      db: 'mongodb://localhost/govhack2015-api-development'
+    },
 
   test: {
     root: rootPath,
@@ -18,7 +27,7 @@ var config = {
       name: 'govhack2015-api'
     },
     port: 3000,
-    db: 'mongodb://localhost/govhack2015-api-test'
+    db: 'mongodb://mongo/govhack2015-api-test'
   },
 
   production: {
@@ -27,7 +36,7 @@ var config = {
       name: 'govhack2015-api'
     },
     port: 3000,
-    db: 'mongodb://localhost/govhack2015-api-production'
+    db: 'mongodb://mongo/govhack2015-api-production'
   }
 };
 
