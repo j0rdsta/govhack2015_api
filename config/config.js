@@ -9,7 +9,7 @@ var config = {
       name: 'govhack2015-api'
     },
     port: 3000,
-    db: 'mongodb://mongo/govhack2015-api-development'
+    db: 'mongodb://mongo/cordial-api-development'
   },
 
    local: {
@@ -18,7 +18,7 @@ var config = {
           name: 'govhack2015-api'
       },
       port: 3000,
-      db: 'mongodb://localhost/govhack2015-api-development'
+      db: 'mongodb://localhost/cordial-api-development'
     },
 
   test: {
@@ -27,7 +27,7 @@ var config = {
       name: 'govhack2015-api'
     },
     port: 3000,
-    db: 'mongodb://mongo/govhack2015-api-test'
+    db: 'mongodb://mongo/cordial-api-test'
   },
 
   production: {
@@ -36,7 +36,7 @@ var config = {
       name: 'govhack2015-api'
     },
     port: 3000,
-    db: 'mongodb://mongo/govhack2015-api-production'
+    db: 'mongodb://mongo/cordial-api-production'
   }
 };
 
