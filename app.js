@@ -1,79 +1,23 @@
-/// <reference path="typings/node/node.d.ts"/>
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var application_root = __dirname,
-        express = require('express'),
-        path = require('path'),
-        http = require('http');
-        
-var mongoose = require('mongoose');
-// var articlesApi = require('./routes/articles')(app, { 'mongoose': mongoose, 'db': dbProduction });
 
 
+var express = require('express'),
+  config = require('./config/config'),
+  glob = require('glob'),
+  mongoose = require('mongoose');
 
+mongoose.connect(config.db);
+var db = mongoose.connection;
+db.on('error', function () {
+  throw new Error('unable to connect to database at ' + config.db);
+});
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var articles = require('./routes/articles');
-var updateData = require('./routes/updateData');
-
+var models = glob.sync(config.root + '/app/models/*.js');
+models.forEach(function (model) {
+  require(model);
+});
 var app = express();
-app.listen(8080);
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+require('./config/express')(app, config);
 
-app.use('/', routes);
-app.use('/users', users);
-app.use('/articles', articles);
-app.use('/updateData', updateData);
+app.listen(config.port);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-
-app.get('/api', function (req, res) {
-        res.send('API is running');
-});
-// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
-  });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
-});
-
-
-module.exports = app;
