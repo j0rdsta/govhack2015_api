@@ -45,20 +45,21 @@ router.get('/', function (req, res) {
     });
 });
 
-router.post('/', function (req, res) {
-    var article;
-    
-    article.save(function (err) {
-    // more code
-        });
-        return res.send(article);
-    });
 
 router.get('/:id', function (req, res) {
     return ArticlesModel.findById(req.params.id, function (err, articles) {
         res.json(articles);
     });
 });
+
+//router.post('/', function (req, res) {
+//    var article;
+//
+//    article.save(function (err) {
+//    // more code
+//        });
+//        return res.send(article);
+//    });
 
 // router.put('/articles/:id', function (req, res) {
 //     return ArticlesModel.findById(req.params.id, function (err, articles) {
